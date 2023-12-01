@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import styled from 'styled-components'
+import './App.css'
+import Button from './components/Button/Button'
+import Counter from './components/Counter/Counter'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Background>
+			<Container>
+				<Counter />
+			</Container>
+		</Background>
+	)
 }
 
-export default App;
+export default App
+
+const Background = styled.div`
+	height: 100vh;
+	background-color: #2a2c36;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`
+
+const Container = styled.div`
+	border: 5px solid #72e4fc;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 30px;
+	gap: 30px;
+`
