@@ -1,3 +1,3 @@
 ### Create counter.
 
-![Image alt](https://github.com/blue-script/mondays-final-test/raw/main/src/mock.png)
+![Image alt](https://github.com/blue-script/counter-v1/raw/main/src/mock.png)
