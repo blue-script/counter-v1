@@ -37,4 +37,9 @@ const ButtonStyled = styled.button`
 	&:active {
 		opacity: 0.5;
 	}
+
+	&:disabled {
+		color: black;
+		opacity: 0.5;
+	}
 `
