@@ -5,7 +5,7 @@ import {Counter} from './layout/Counter/Counter'
 import {RangeOfValue} from './layout/RangeOfValue/RangeOfValue';
 
 function App() {
-  const [maxValue, setMaxValue] = useState<number>(0)
+  const [maxValue, setMaxValue] = useState<number>(5)
   const [startValue, setStartValue] = useState<number>(0)
 
   const setValue = (maxValue: number, startValue: number) => {

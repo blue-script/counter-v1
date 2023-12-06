@@ -20,7 +20,7 @@ export const Counter: React.FC<CounterType> = ({maxScore, startScore}) => {
 	}
 	return (
 		<CounterStyled>
-			<DisplayScore score={score} maxScore={10}/>
+			<DisplayScore score={score} maxScore={maxScore}/>
 			<EditScore
 				score={score}
 				maxScore={maxScore}
