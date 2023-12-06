@@ -14,9 +14,12 @@ export const RangeOfValue: React.FC<RangeOfValueType> = ({
                                                            startValue,
                                                            setValue,
                                                          }) => {
+  const setValueHandler = (maxValue: number, startValue: number) => {
+    setValue(maxValue, startValue)
+  }
   return <EditRangeOfValueStyled>
     <EditRangeOfValue maxValue={maxValue} startValue={startValue}/>
-    <SetRangeOfValue setValue={setValue}/>
+    <SetRangeOfValue setValue={setValueHandler}/>
   </EditRangeOfValueStyled>
 }
 
