@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import {EditRangeOfValue} from './EditRangeOfValue/EditRangeOfValue';
 import {SetRangeOfValue} from './SetRangeOfValue/SetRangeOfValue';
@@ -14,11 +14,17 @@ export const RangeOfValue: React.FC<RangeOfValueType> = ({
                                                            startValue,
                                                            setValue,
                                                          }) => {
-  const setValueHandler = (maxValue: number, startValue: number) => {
-    setValue(maxValue, startValue)
+  const [maxEditValue, setMaxEditValue] = useState<number>(maxValue)
+  const [maxStartEditValue, setStartEditValue] = useState<number>(startValue)
+  const setValueHandler = () => {
+    setValue(maxEditValue, maxStartEditValue)
   }
   return <EditRangeOfValueStyled>
-    <EditRangeOfValue maxValue={maxValue} startValue={startValue}/>
+    <EditRangeOfValue maxValue={maxEditValue}
+                      startValue={maxStartEditValue}
+                      setMaxEditValue={setMaxEditValue}
+                      setStartEditValue={setStartEditValue}
+    />
     <SetRangeOfValue setValue={setValueHandler}/>
   </EditRangeOfValueStyled>
 }

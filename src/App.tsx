@@ -5,19 +5,28 @@ import {Counter} from './layout/Counter/Counter'
 import {RangeOfValue} from './layout/RangeOfValue/RangeOfValue';
 
 function App() {
-  const [maxValue, setMaxValue] = useState<number>(5)
-  const [startValue, setStartValue] = useState<number>(0)
+
+  const [maxValue, setMaxValue] = useState<number>(() => {
+    let maxValueAsString = localStorage.getItem('maxValue')
+    return maxValueAsString ? JSON.parse(maxValueAsString) : 0
+  })
+  const [startValue, setStartValue] = useState<number>(() => {
+    let startValueAsString = localStorage.getItem('startValue')
+    return startValueAsString ? JSON.parse(startValueAsString) : 0
+  })
 
   const setValue = (maxValue: number, startValue: number) => {
     setMaxValue(maxValue)
+    localStorage.setItem('maxValue', JSON.stringify(maxValue))
     setStartValue(startValue)
+    localStorage.setItem('startValue', JSON.stringify(startValue))
   }
 
   return (
     <Background>
       <RangeOfValue maxValue={maxValue}
                     startValue={startValue}
-                    setValue={setValue} />
+                    setValue={setValue}/>
       <Counter maxScore={maxValue} startScore={startValue}/>
     </Background>
   )

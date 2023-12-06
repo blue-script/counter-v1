@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import Button from '../../../components/Button/Button';
 
 type SetRangeOfValuePropsType = {
-  setValue: (maxValue: number, startValue: number) => void
+  setValue: () => void
 }
 export const SetRangeOfValue: React.FC<SetRangeOfValuePropsType> = ({setValue}) => {
-  const onClickHandler = () => setValue
+  const onClickHandler = () => setValue()
   return <SetRangeOfValueStyled>
     <Button title='set' disabled={false} func={onClickHandler}/>
   </SetRangeOfValueStyled>

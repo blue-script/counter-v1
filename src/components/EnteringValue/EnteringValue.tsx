@@ -3,15 +3,16 @@ import {ChangeEvent, useState} from 'react';
 
 type EnteringValuePropsType = {
   title: string
+  value: number
+  func: (value: number)=>void
 }
-export const EnteringValue: React.FC<EnteringValuePropsType> = ({title}) => {
-  const [value, setValue] = useState(0)
+export const EnteringValue: React.FC<EnteringValuePropsType> = (props) => {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.currentTarget.valueAsNumber)
+    props.func(e.currentTarget.valueAsNumber)
   }
   return <EnteringValueStyled>
-    <p>{title}</p>
-    <input type="number" value={value} onChange={onChangeHandler}/>
+    <p>{props.title}</p>
+    <input type="number" value={props.value} onChange={onChangeHandler}/>
   </EnteringValueStyled>
 }
 

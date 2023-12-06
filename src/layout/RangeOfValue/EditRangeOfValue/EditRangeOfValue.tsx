@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 import {EnteringValue} from '../../../components/EnteringValue/EnteringValue';
 
-export const EditRangeOfValue = () => {
+type EditRangeOfValuePropsType = {
+  maxValue: number
+  startValue: number
+  setMaxEditValue: (value: number) => void
+  setStartEditValue: (value: number) => void
+}
+export const EditRangeOfValue: React.FC<EditRangeOfValuePropsType> = (props) => {
   return <EditRangeOfValueStyled>
-    <EnteringValue title='max value:'/>
-    <EnteringValue title='start value:'/>
+    <EnteringValue title="max value:" value={props.maxValue} func={props.setMaxEditValue}/>
+    <EnteringValue title="start value:" value={props.startValue} func={props.setStartEditValue}/>
   </EditRangeOfValueStyled>
 }
 
