@@ -1,33 +1,37 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import './App.css'
 import {Counter} from './layout/Counter/Counter'
 import {RangeOfValue} from './layout/RangeOfValue/RangeOfValue';
 
-function App() {
+type maxMinValueType = {
+  maxScore: number,
+  startScore: number
+}
 
-  const [maxValue, setMaxValue] = useState<number>(() => {
-    let maxValueAsString = localStorage.getItem('maxValue')
-    return maxValueAsString ? JSON.parse(maxValueAsString) : 0
+function App() {
+  const maxValueFromLocalStorage = localStorage.getItem('maxScore');
+  const minValueFromLocalStorage = localStorage.getItem('startScore');
+  const [maxMinValue, setMaxMinValue] = useState<maxMinValueType>({
+    maxScore: maxValueFromLocalStorage ? JSON.parse(maxValueFromLocalStorage) : 5,
+    startScore: minValueFromLocalStorage ? JSON.parse(minValueFromLocalStorage) :0
   })
-  const [startValue, setStartValue] = useState<number>(() => {
-    let startValueAsString = localStorage.getItem('startValue')
-    return startValueAsString ? JSON.parse(startValueAsString) : 0
-  })
+
+  const [editRangeOfValue, setEditRangeOfValue] = useState(false)
 
   const setValue = (maxValue: number, startValue: number) => {
-    setMaxValue(maxValue)
-    localStorage.setItem('maxValue', JSON.stringify(maxValue))
-    setStartValue(startValue)
-    localStorage.setItem('startValue', JSON.stringify(startValue))
+    setMaxMinValue({
+      maxScore: maxValue,
+      startScore: startValue
+    })
+    localStorage.setItem('maxScore', JSON.stringify(maxValue))
+    localStorage.setItem('startScore', JSON.stringify(startValue))
   }
 
   return (
     <Background>
-      <RangeOfValue maxValue={maxValue}
-                    startValue={startValue}
-                    setValue={setValue}/>
-      <Counter maxScore={maxValue} startScore={startValue}/>
+      <RangeOfValue maxMinValue={maxMinValue} setValue={setValue}/>
+      <Counter maxMinValue={maxMinValue}/>
     </Background>
   )
 }

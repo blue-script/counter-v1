@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {EnteringValue} from '../../../components/EnteringValue/EnteringValue';
+import {EnteringValue} from '../EnteringValue/EnteringValue';
 
 type EditRangeOfValuePropsType = {
   maxValue: number
@@ -14,6 +14,8 @@ export const EditRangeOfValue: React.FC<EditRangeOfValuePropsType> = (props) => 
   </EditRangeOfValueStyled>
 }
 
+
+// Style------------------------------------------------
 const EditRangeOfValueStyled = styled.div`
   display: flex;
   flex-direction: column;

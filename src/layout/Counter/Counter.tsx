@@ -1,36 +1,43 @@
 import React, {useState} from 'react'
-import DisplayScore from './DisplayScore/DisplayScore'
-import EditScore from './EditScore/EditScore'
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
+import Button from '../../components/Button/Button';
 
 type CounterType = {
-  maxScore: number
-  startScore: number
+  maxMinValue: {
+    maxScore: number
+    startScore: number
+  }
 }
 
-export const Counter: React.FC<CounterType> = ({maxScore, startScore}) => {
-  const [score, setScore] = useState<number>(startScore)
+export const Counter: React.FC<CounterType> = (props) => {
+  const [score, setScore] = useState<number>(props.maxMinValue.startScore)
 
   const incScoreHandler = () => {
     setScore(score + 1)
   }
 
   const resetScoreHandler = () => {
-    setScore(startScore)
+    setScore(props.maxMinValue.startScore)
   }
+  const disabledForReset = Boolean(score <= props.maxMinValue.startScore)
+  const disabledForInc = Boolean(score >= props.maxMinValue.maxScore)
   return (
     <CounterStyled>
-      <DisplayScore score={score} maxScore={maxScore}/>
-      <EditScore
-        score={score}
-        maxScore={maxScore}
-        incScoreHandler={incScoreHandler}
-        resetScoreHandler={resetScoreHandler}
-      />
+      <DisplayScoreStyled score={score} maxScore={props.maxMinValue.maxScore}>{score}</DisplayScoreStyled>
+      <EditScoreStyled>
+        <Button disabled={disabledForInc} title="inc" func={incScoreHandler}/>
+        <Button
+          disabled={disabledForReset}
+          title="reset"
+          func={resetScoreHandler}
+        />
+      </EditScoreStyled>
     </CounterStyled>
   )
 }
 
+
+// Style-----------------------------------------------------------------
 const CounterStyled = styled.div`
   border: 5px solid #72e4fc;
   border-radius: 20px;
@@ -40,4 +47,34 @@ const CounterStyled = styled.div`
   align-items: center;
   padding: 30px;
   gap: 30px;
+`
+
+const EditScoreStyled = styled.div`
+  width: 520px;
+  height: 160px;
+  border: 5px solid #72e4fc;
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+`
+
+type DisplayScoreStyledProps = { score: number, maxScore:number }
+const DisplayScoreStyled = styled.div<DisplayScoreStyledProps>`
+	width: 520px;
+	height: 220px;
+	color: #72e4fc;
+	border-radius: 14px;
+	border: 5px solid #72e4fc;
+	margin: 0 auto;
+	text-align: center;
+	line-height: 220px;
+	font-size: 100px;
+	font-weight: bold;
+	${props =>
+  props.score >= props.maxScore &&
+  css<DisplayScoreStyledProps>`
+			color: red;
+		`}
 `

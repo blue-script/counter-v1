@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent} from 'react';
 
 type EnteringValuePropsType = {
   title: string
   value: number
-  func: (value: number)=>void
+  func: (value: number) => void
 }
 export const EnteringValue: React.FC<EnteringValuePropsType> = (props) => {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -12,18 +12,20 @@ export const EnteringValue: React.FC<EnteringValuePropsType> = (props) => {
   }
   return <EnteringValueStyled>
     <p>{props.title}</p>
-    <input type="number" value={props.value} onChange={onChangeHandler}/>
+    <input type='number' value={props.value} onChange={onChangeHandler}/>
   </EnteringValueStyled>
 }
 
+
+// Style------------------------------------------------
 const EnteringValueStyled = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
   align-items: center;
-  
+
   p {
-    margin: 0;  
+    margin: 0;
     font-size: 36px;
     text-decoration: none;
   }
