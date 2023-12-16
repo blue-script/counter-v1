@@ -17,7 +17,8 @@ function App() {
     startScore: minValueFromLocalStorage ? JSON.parse(minValueFromLocalStorage) :0
   })
 
-  const [editRangeOfValue, setEditRangeOfValue] = useState(false)
+
+  const [correctValues, setCorrectValues] = useState(true)
 
   const setValue = (maxValue: number, startValue: number) => {
     setMaxMinValue({
@@ -28,10 +29,14 @@ function App() {
     localStorage.setItem('startScore', JSON.stringify(startValue))
   }
 
+  if (maxMinValue.maxScore < 1 && maxMinValue.startScore < 0 && maxMinValue.maxScore <= maxMinValue.startScore) {
+    setCorrectValues(false)
+  }
+
   return (
     <Background>
-      <RangeOfValue maxMinValue={maxMinValue} setValue={setValue}/>
-      <Counter maxMinValue={maxMinValue}/>
+      <RangeOfValue maxMinValue={maxMinValue} setMaxMinValue={setMaxMinValue} setValue={setValue}/>
+      <Counter maxMinValue={maxMinValue} correctValues={correctValues}/>
     </Background>
   )
 }

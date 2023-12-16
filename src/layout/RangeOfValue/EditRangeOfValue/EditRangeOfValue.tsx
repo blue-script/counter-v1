@@ -4,13 +4,13 @@ import {EnteringValue} from '../EnteringValue/EnteringValue';
 type EditRangeOfValuePropsType = {
   maxValue: number
   startValue: number
-  setMaxEditValue: (value: number) => void
-  setStartEditValue: (value: number) => void
+  setValue: (value: number) => void
+  setMaxMinValue: (value: number) => void
 }
 export const EditRangeOfValue: React.FC<EditRangeOfValuePropsType> = (props) => {
   return <EditRangeOfValueStyled>
-    <EnteringValue title="max value:" value={props.maxValue} func={props.setMaxEditValue}/>
-    <EnteringValue title="start value:" value={props.startValue} func={props.setStartEditValue}/>
+    <EnteringValue title="max value:" value={props.maxValue} func={props.setMaxMinValue}/>
+    <EnteringValue title="start value:" value={props.startValue} func={props.setMaxMinValue}/>
   </EditRangeOfValueStyled>
 }
 

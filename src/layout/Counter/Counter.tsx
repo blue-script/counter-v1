@@ -7,23 +7,21 @@ type CounterType = {
     maxScore: number
     startScore: number
   }
+  correctValues: boolean
 }
 
 export const Counter: React.FC<CounterType> = (props) => {
   const [score, setScore] = useState<number>(props.maxMinValue.startScore)
-
-  const incScoreHandler = () => {
-    setScore(score + 1)
-  }
-
-  const resetScoreHandler = () => {
-    setScore(props.maxMinValue.startScore)
-  }
+  const incScoreHandler = () => setScore(score + 1)
+  const resetScoreHandler = () => setScore(props.maxMinValue.startScore)
   const disabledForReset = Boolean(score <= props.maxMinValue.startScore)
   const disabledForInc = Boolean(score >= props.maxMinValue.maxScore)
+
   return (
     <CounterStyled>
-      <DisplayScoreStyled score={score} maxScore={props.maxMinValue.maxScore}>{score}</DisplayScoreStyled>
+      <DisplayScoreStyled score={score} maxScore={props.maxMinValue.maxScore}>
+        {props.correctValues ? score : 'Incorrect value!'}
+      </DisplayScoreStyled>
       <EditScoreStyled>
         <Button disabled={disabledForInc} title="inc" func={incScoreHandler}/>
         <Button

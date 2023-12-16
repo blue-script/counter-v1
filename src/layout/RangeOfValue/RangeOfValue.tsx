@@ -9,19 +9,18 @@ type RangeOfValueType = {
     startScore: number
   }
   setValue: (maxValue: number, startValue: number) => void
+  setMaxMinValue: (maxValue: number, startValue: number) => void
 }
 
 export const RangeOfValue: React.FC<RangeOfValueType> = (props) => {
-  const [maxEditValue, setMaxEditValue] = useState<number>(props.maxMinValue.maxScore)
-  const [maxStartEditValue, setStartEditValue] = useState<number>(props.maxMinValue.startScore)
   const setValueHandler = () => {
     props.setValue(maxEditValue, maxStartEditValue)
   }
   return <EditRangeOfValueStyled>
-    <EditRangeOfValue maxValue={maxEditValue}
-                      startValue={maxStartEditValue}
-                      setMaxEditValue={setMaxEditValue}
-                      setStartEditValue={setStartEditValue}
+    <EditRangeOfValue maxValue={props.maxMinValue.maxScore}
+                      startValue={props.maxMinValue.startScore}
+                      setValue={props.setValue}
+                      setMaxMinValue={}
     />
     <ButtonStyled>
       <Button title='set' disabled={false} func={setValueHandler}/>
