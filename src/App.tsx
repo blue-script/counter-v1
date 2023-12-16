@@ -4,7 +4,7 @@ import './App.css'
 import {Counter} from './layout/Counter/Counter'
 import {RangeOfValue} from './layout/RangeOfValue/RangeOfValue';
 
-type maxMinValueType = {
+export type maxMinValueType = {
   maxScore: number,
   startScore: number
 }
@@ -20,13 +20,9 @@ function App() {
 
   const [correctValues, setCorrectValues] = useState(true)
 
-  const setValue = (maxValue: number, startValue: number) => {
-    setMaxMinValue({
-      maxScore: maxValue,
-      startScore: startValue
-    })
-    localStorage.setItem('maxScore', JSON.stringify(maxValue))
-    localStorage.setItem('startScore', JSON.stringify(startValue))
+  const setValue = () => {
+    localStorage.setItem('maxScore', JSON.stringify(maxMinValue.maxScore))
+    localStorage.setItem('startScore', JSON.stringify(maxMinValue.startScore))
   }
 
   if (maxMinValue.maxScore < 1 && maxMinValue.startScore < 0 && maxMinValue.maxScore <= maxMinValue.startScore) {

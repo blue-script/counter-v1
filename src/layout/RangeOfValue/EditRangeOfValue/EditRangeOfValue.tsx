@@ -5,9 +5,10 @@ type EditRangeOfValuePropsType = {
   maxValue: number
   startValue: number
   setValue: (value: number) => void
-  setMaxMinValue: (value: number) => void
+  setMaxMinValue: (maxScore: number, startScore: number) => void
 }
 export const EditRangeOfValue: React.FC<EditRangeOfValuePropsType> = (props) => {
+  func
   return <EditRangeOfValueStyled>
     <EnteringValue title="max value:" value={props.maxValue} func={props.setMaxMinValue}/>
     <EnteringValue title="start value:" value={props.startValue} func={props.setMaxMinValue}/>
