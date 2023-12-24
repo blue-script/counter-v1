@@ -21,7 +21,7 @@ export const Counter: React.FC<CounterType> = (props) => {
 
   return (
     <CounterStyled>
-      <DisplayScoreStyled score={props.score} maxScore={props.maxMinValue.maxScore} isCorrectValues={props.isCorrectValues} isSetValue={props.isSetValue}>
+      <DisplayScoreStyled $score={props.score} $maxscore={props.maxMinValue.maxScore} $iscorrectvalues={props.isCorrectValues.toString()} $issetvalue={props.isSetValue.toString()}>
         {
           props.isSetValue
           ? props.score
@@ -67,10 +67,10 @@ const EditScoreStyled = styled.div`
 `
 
 type DisplayScoreStyledProps = {
-  score:number
-  maxScore: number
-  isCorrectValues: boolean
-  isSetValue: boolean
+  $score:number
+  $maxscore: number
+  $iscorrectvalues: string
+  $issetvalue: string
 }
 const DisplayScoreStyled = styled.div<DisplayScoreStyledProps>`
   width: 520px;
@@ -84,17 +84,17 @@ const DisplayScoreStyled = styled.div<DisplayScoreStyledProps>`
   font-size: 100px;
   font-weight: bold;
   ${props =>
-          props.score >= props.maxScore &&
+          props.$score >= props.$maxscore &&
           css<DisplayScoreStyledProps>`
             color: red;
           `}
   ${props =>
-          !props.isSetValue &&
+          props.$issetvalue === 'false' &&
           css<DisplayScoreStyledProps>`
             font-size: 30px;
           `}
   ${props =>
-          !props.isCorrectValues &&
+          props.$iscorrectvalues === 'false' &&
           css<DisplayScoreStyledProps>`
             color: red;
           `}

@@ -23,6 +23,7 @@ export const RangeOfValue: React.FC<RangeOfValueType> = (props) => {
     <EditRangeOfValue maxMinValue={props.maxMinValue}
                       isSetValueHandler={props.isSetValueHandler}
                       setMaxMinValue={props.setMaxMinValue}
+                      isCorrectValues={props.isCorrectValues}
     />
     <ButtonStyled>
       <Button title='set' disabled={!props.isCorrectValues} func={setValueHandler}/>

@@ -8,6 +8,7 @@ type EditRangeOfValuePropsType = {
   }
   isSetValueHandler: (value: boolean) => void
   setMaxMinValue: (maxScore: number, startScore: number) => void
+  isCorrectValues: boolean
 }
 export const EditRangeOfValue: React.FC<EditRangeOfValuePropsType> = (props) => {
   const setValue = (max: number = props.maxMinValue.maxScore, start: number = props.maxMinValue.startScore) => {
@@ -15,8 +16,8 @@ export const EditRangeOfValue: React.FC<EditRangeOfValuePropsType> = (props) => 
     props.setMaxMinValue(max, start)
   }
   return <EditRangeOfValueStyled>
-    <EnteringValue title="max value:" value={props.maxMinValue.maxScore} setValue={setValue}/>
-    <EnteringValue title="start value:" value={props.maxMinValue.startScore} setValue={setValue}/>
+    <EnteringValue title="max value:" value={props.maxMinValue.maxScore} setValue={setValue} isCorrectValues={props.isCorrectValues}/>
+    <EnteringValue title="start value:" value={props.maxMinValue.startScore} setValue={setValue} isCorrectValues={props.isCorrectValues}/>
   </EditRangeOfValueStyled>
 }
 

@@ -54,7 +54,6 @@ function App() {
 
 export default App
 
-
 const Background = styled.div`
   height: 100vh;
   background-color: #2a2c36;
