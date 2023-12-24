@@ -17,13 +17,14 @@ export const RangeOfValue: React.FC<RangeOfValueType> = (props) => {
   const setValueHandler = () => {
     props.isSetValueHandler(true)
     props.setMaxMinValue(props.maxMinValue.maxScore, props.maxMinValue.startScore)
+    localStorage.setItem('maxScore', JSON.stringify(props.maxMinValue.maxScore))
+    localStorage.setItem('startScore', JSON.stringify(props.maxMinValue.startScore))
   }
 
   return <EditRangeOfValueStyled>
     <EditRangeOfValue maxMinValue={props.maxMinValue}
                       isSetValueHandler={props.isSetValueHandler}
                       setMaxMinValue={props.setMaxMinValue}
-                      isCorrectValues={props.isCorrectValues}
     />
     <ButtonStyled>
       <Button title='set' disabled={!props.isCorrectValues} func={setValueHandler}/>

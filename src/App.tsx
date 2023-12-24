@@ -34,8 +34,6 @@ function App() {
 
   const setMaxMinValueHandler = (maxScore: number, startScore: number) => {
     setMaxMinValue({maxScore, startScore})
-    localStorage.setItem('maxScore', JSON.stringify(maxScore))
-    localStorage.setItem('startScore', JSON.stringify(startScore))
     setScoreHandler(startScore)
   }
 

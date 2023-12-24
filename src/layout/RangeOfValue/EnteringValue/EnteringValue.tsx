@@ -12,7 +12,6 @@ export const EnteringValue: React.FC<EnteringValuePropsType> = (props) => {
     props.title === 'max value:'
       ? props.setValue(e.currentTarget.valueAsNumber, undefined)
       : props.setValue(undefined, e.currentTarget.valueAsNumber)
-
   }
   return <EnteringValueStyled $value={props.value} $iscorrectvalues={props.isCorrectValues.toString()}>
     <p>{props.title}</p>
