@@ -10,11 +10,9 @@ export type maxMinValueType = {
 }
 
 function App() {
-  const maxValueFromLocalStorage = localStorage.getItem('maxScore');
-  const minValueFromLocalStorage = localStorage.getItem('startScore');
   const [maxMinValue, setMaxMinValue] = useState<maxMinValueType>({
     maxScore: JSON.parse?.(localStorage.getItem('maxScore') as string) || 5,
-    startScore: minValueFromLocalStorage ? JSON.parse(minValueFromLocalStorage) :0
+    startScore:JSON.parse?.(localStorage.getItem('startScore') as string) || 0
   })
 
   const [isSetValue, setIsSetValue] = useState(true)
