@@ -17,14 +17,14 @@ function App() {
     startScore: minValueFromLocalStorage ? JSON.parse(minValueFromLocalStorage) :0
   })
 
-  const [isSetValue, setIsSetValue] = useState(false)
+  const [isSetValue, setIsSetValue] = useState(true)
   const [isCorrectValues, setIsCorrectValues] = useState(true)
 
-  const setValue = () => {
-    setIsSetValue(false)
+  const isSetValueHandler = (value: boolean) => {
+    setIsSetValue(value)
   }
 
-  if (maxMinValue.maxScore < 1 && maxMinValue.startScore < 0 && maxMinValue.maxScore <= maxMinValue.startScore) {
+  if (maxMinValue.maxScore < 1 || maxMinValue.startScore < 0 || maxMinValue.maxScore <= maxMinValue.startScore) {
     setIsCorrectValues(false)
   }
 
@@ -33,7 +33,7 @@ function App() {
   }
   return (
     <Background>
-      <RangeOfValue maxMinValue={maxMinValue} setMaxMinValue={setMaxMinValueHandler} setValue={setValue}/>
+      <RangeOfValue maxMinValue={maxMinValue} setMaxMinValue={setMaxMinValueHandler} isSetValueHandler={isSetValueHandler}/>
       <Counter maxMinValue={maxMinValue} isSetValue={isSetValue} isCorrectValues={isCorrectValues}/>
     </Background>
   )

@@ -4,11 +4,14 @@ import {ChangeEvent} from 'react';
 type EnteringValuePropsType = {
   title: string
   value: number
-  func?: (value: number) => void
+  setValue: (max: number | undefined, start: number | undefined) => void
 }
 export const EnteringValue: React.FC<EnteringValuePropsType> = (props) => {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    props.func(e.currentTarget.valueAsNumber)
+    props.title === 'max value:'
+      ? props.setValue(e.currentTarget.valueAsNumber, undefined)
+      : props.setValue(undefined, e.currentTarget.valueAsNumber)
+
   }
   return <EnteringValueStyled>
     <p>{props.title}</p>

@@ -8,17 +8,17 @@ type RangeOfValueType = {
     maxScore: number
     startScore: number
   }
-  setValue: () => void
+  isSetValueHandler: (value: boolean) => void
   setMaxMinValue: (maxScore: number, startScore: number) => void
 }
 
 export const RangeOfValue: React.FC<RangeOfValueType> = (props) => {
   const setValueHandler = () => {
-    props.setValue()
+    props.isSetValueHandler(true)
   }
   return <EditRangeOfValueStyled>
-    <EditRangeOfValue maxMinValue={props.maxMinValue
-                      setValue={props.setValue}
+    <EditRangeOfValue maxMinValue={props.maxMinValue}
+                      isSetValueHandler={props.isSetValueHandler}
                       setMaxMinValue={props.setMaxMinValue}
     />
     <ButtonStyled>
