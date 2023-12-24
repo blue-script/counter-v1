@@ -12,8 +12,10 @@ export type maxMinValueType = {
 function App() {
   const [maxMinValue, setMaxMinValue] = useState<maxMinValueType>({
     maxScore: JSON.parse?.(localStorage.getItem('maxScore') as string) || 5,
-    startScore:JSON.parse?.(localStorage.getItem('startScore') as string) || 0
+    startScore: JSON.parse?.(localStorage.getItem('startScore') as string) || 0,
   })
+
+  const [score, setScore] = useState<number>(maxMinValue.startScore)
 
   const [isSetValue, setIsSetValue] = useState(true)
   const [isCorrectValues, setIsCorrectValues] = useState(true)
@@ -22,22 +24,36 @@ function App() {
     setIsSetValue(value)
   }
 
-  if (maxMinValue.maxScore < 1 || maxMinValue.startScore < 0 || maxMinValue.maxScore <= maxMinValue.startScore) {
-    setIsCorrectValues(false)
-  }
+  useEffect(() => {
+    if (maxMinValue.maxScore < 1 || maxMinValue.startScore < 0 || maxMinValue.maxScore <= maxMinValue.startScore) {
+      setIsCorrectValues(false)
+    } else {
+      setIsCorrectValues(true)
+    }
+  }, [maxMinValue])
 
   const setMaxMinValueHandler = (maxScore: number, startScore: number) => {
     setMaxMinValue({maxScore, startScore})
+    localStorage.setItem('maxScore', JSON.stringify(maxScore))
+    localStorage.setItem('startScore', JSON.stringify(startScore))
+    setScoreHandler(startScore)
+  }
+
+  const setScoreHandler = (num: number) => {
+    setScore(num)
   }
   return (
     <Background>
-      <RangeOfValue maxMinValue={maxMinValue} setMaxMinValue={setMaxMinValueHandler} isSetValueHandler={isSetValueHandler}/>
-      <Counter maxMinValue={maxMinValue} isSetValue={isSetValue} isCorrectValues={isCorrectValues}/>
+      <RangeOfValue maxMinValue={maxMinValue} setMaxMinValue={setMaxMinValueHandler}
+                    isSetValueHandler={isSetValueHandler} isCorrectValues={isCorrectValues}/>
+      <Counter score={score} setScoreHandler={setScoreHandler} maxMinValue={maxMinValue} isSetValue={isSetValue}
+               isCorrectValues={isCorrectValues}/>
     </Background>
   )
 }
 
 export default App
+
 
 const Background = styled.div`
   height: 100vh;

@@ -3,6 +3,8 @@ import styled, {css} from 'styled-components';
 import Button from '../../components/Button/Button';
 
 type CounterType = {
+  score: number
+  setScoreHandler: (num: number) => void
   maxMinValue: {
     maxScore: number
     startScore: number
@@ -12,27 +14,26 @@ type CounterType = {
 }
 
 export const Counter: React.FC<CounterType> = (props) => {
-  const [score, setScore] = useState<number>(props.maxMinValue.startScore)
-  const incScoreHandler = () => setScore(score + 1)
-  const resetScoreHandler = () => setScore(props.maxMinValue.startScore)
-  const disabledForReset = Boolean(score <= props.maxMinValue.startScore)
-  const disabledForInc = Boolean(score >= props.maxMinValue.maxScore)
+  const incScoreHandler = () => props.setScoreHandler(props.score + 1)
+  const resetScoreHandler = () => props.setScoreHandler(props.maxMinValue.startScore)
+  const disabledForReset = Boolean(props.score <= props.maxMinValue.startScore)
+  const disabledForInc = Boolean(props.score >= props.maxMinValue.maxScore)
 
   return (
     <CounterStyled>
-      <DisplayScoreStyled score={score} maxScore={props.maxMinValue.maxScore} isCorrectValues={props.isCorrectValues} isSetValue={props.isSetValue}>
+      <DisplayScoreStyled score={props.score} maxScore={props.maxMinValue.maxScore} isCorrectValues={props.isCorrectValues} isSetValue={props.isSetValue}>
         {
           props.isSetValue
-          ? score
+          ? props.score
           : props.isCorrectValues
             ? 'enter values and press "set"'
             : 'Incorrect value!'
         }
       </DisplayScoreStyled>
       <EditScoreStyled>
-        <Button disabled={disabledForInc} title="inc" func={incScoreHandler}/>
+        <Button disabled={disabledForInc || !props.isSetValue} title="inc" func={incScoreHandler}/>
         <Button
-          disabled={disabledForReset}
+          disabled={disabledForReset || !props.isSetValue}
           title="reset"
           func={resetScoreHandler}
         />
