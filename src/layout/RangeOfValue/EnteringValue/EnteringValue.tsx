@@ -4,7 +4,7 @@ import {ChangeEvent} from 'react';
 type EnteringValuePropsType = {
   title: string
   value: number
-  func: (value: number) => void
+  func?: (value: number) => void
 }
 export const EnteringValue: React.FC<EnteringValuePropsType> = (props) => {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

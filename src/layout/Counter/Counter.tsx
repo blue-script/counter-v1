@@ -7,7 +7,8 @@ type CounterType = {
     maxScore: number
     startScore: number
   }
-  correctValues: boolean
+  isSetValue: boolean
+  isCorrectValues: boolean
 }
 
 export const Counter: React.FC<CounterType> = (props) => {
@@ -19,8 +20,14 @@ export const Counter: React.FC<CounterType> = (props) => {
 
   return (
     <CounterStyled>
-      <DisplayScoreStyled score={score} maxScore={props.maxMinValue.maxScore}>
-        {props.correctValues ? score : 'Incorrect value!'}
+      <DisplayScoreStyled score={score} maxScore={props.maxMinValue.maxScore} isCorrectValues={props.isCorrectValues} isSetValue={props.isSetValue}>
+        {
+          props.isSetValue
+          ? score
+          : props.isCorrectValues
+            ? 'enter values and press "set"'
+            : 'Incorrect value!'
+        }
       </DisplayScoreStyled>
       <EditScoreStyled>
         <Button disabled={disabledForInc} title="inc" func={incScoreHandler}/>
@@ -58,21 +65,36 @@ const EditScoreStyled = styled.div`
   gap: 50px;
 `
 
-type DisplayScoreStyledProps = { score: number, maxScore:number }
+type DisplayScoreStyledProps = {
+  score:number
+  maxScore: number
+  isCorrectValues: boolean
+  isSetValue: boolean
+}
 const DisplayScoreStyled = styled.div<DisplayScoreStyledProps>`
-	width: 520px;
-	height: 220px;
-	color: #72e4fc;
-	border-radius: 14px;
-	border: 5px solid #72e4fc;
-	margin: 0 auto;
-	text-align: center;
-	line-height: 220px;
-	font-size: 100px;
-	font-weight: bold;
-	${props =>
-  props.score >= props.maxScore &&
-  css<DisplayScoreStyledProps>`
-			color: red;
-		`}
+  width: 520px;
+  height: 220px;
+  color: #72e4fc;
+  border-radius: 14px;
+  border: 5px solid #72e4fc;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 220px;
+  font-size: 100px;
+  font-weight: bold;
+  ${props =>
+          props.score >= props.maxScore &&
+          css<DisplayScoreStyledProps>`
+            color: red;
+          `}
+  ${props =>
+          !props.isSetValue &&
+          css<DisplayScoreStyledProps>`
+            font-size: 30px;
+          `}
+  ${props =>
+          !props.isCorrectValues &&
+          css<DisplayScoreStyledProps>`
+            color: red;
+          `}
 `

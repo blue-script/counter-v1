@@ -17,8 +17,7 @@ export const RangeOfValue: React.FC<RangeOfValueType> = (props) => {
     props.setValue()
   }
   return <EditRangeOfValueStyled>
-    <EditRangeOfValue maxValue={props.maxMinValue.maxScore}
-                      startValue={props.maxMinValue.startScore}
+    <EditRangeOfValue maxMinValue={props.maxMinValue
                       setValue={props.setValue}
                       setMaxMinValue={props.setMaxMinValue}
     />
