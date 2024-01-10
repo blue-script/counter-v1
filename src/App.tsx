@@ -4,15 +4,15 @@ import './App.css'
 import {Counter} from './layout/Counter/Counter'
 import {RangeOfValue} from './layout/RangeOfValue/RangeOfValue';
 
-export type maxMinValueType = {
-  maxScore: number,
-  startScore: number
+export type RangeOfValuesType = {
+  maxValue: number,
+  minValue: number,
 }
 
 function App() {
-  const [rangeOfValues, setMaxMinValue] = useState<maxMinValueType>({
-    maxScore: JSON.parse?.(localStorage.getItem('maxScore') as string) || 5,
-    startScore: JSON.parse?.(localStorage.getItem('startScore') as string) || 0,
+  const [rangeOfValues, setMaxMinValue] = useState<RangeOfValuesType>({
+    maxValue: JSON.parse?.(localStorage.getItem('maxScore') as string) || 5,
+    minValue: JSON.parse?.(localStorage.getItem('startScore') as string) || 0,
   })
 
   const [score, setScore] = useState<number>(rangeOfValues.startScore)
