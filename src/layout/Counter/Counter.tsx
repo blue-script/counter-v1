@@ -1,21 +1,22 @@
 import React, {useState} from 'react'
 import styled, {css} from 'styled-components';
 import Button from '../../components/Button/Button';
+import {MyPostsType} from './CounterContainer';
 
-type CounterType = {
-  score: number
-  setScoreHandler: (num: number) => void
-  maxMinValue: {
-    maxScore: number
-    startScore: number
-  }
-  isSetValue: boolean
-  isCorrectValues: boolean
-}
+// type CounterType = {
+//   score: number
+//   setValueHandler: (num: number) => void
+//   maxMinValue: {
+//     maxScore: number
+//     startScore: number
+//   }
+//   isSetValue: boolean
+//   isCorrectValues: boolean
+// }
 
-export const Counter: React.FC<CounterType> = (props) => {
-  const incScoreHandler = () => props.setScoreHandler(props.score + 1)
-  const resetScoreHandler = () => props.setScoreHandler(props.maxMinValue.startScore)
+export const Counter: React.FC<MyPostsType> = ({score, rangeOfValue, setValueHandler, ...rest}) => {
+  const incScoreHandler = () => setValueHandler(score + 1)
+  const resetScoreHandler = () => setValueHandler(rangeOfValue.minValue)
   const disabledForReset = Boolean(props.score <= props.maxMinValue.startScore)
   const disabledForInc = Boolean(props.score >= props.maxMinValue.maxScore)
 

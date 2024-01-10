@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import './App.css'
 import {Counter} from './layout/Counter/Counter'
 import {RangeOfValue} from './layout/RangeOfValue/RangeOfValue';
+import {useSelector} from 'react-redux';
+import {AppRootStateType} from './state/store';
+import CounterContainer from './layout/Counter/CounterContainer';
 
 export type RangeOfValuesType = {
   maxValue: number,
@@ -10,10 +13,13 @@ export type RangeOfValuesType = {
 }
 
 function App() {
-  const [rangeOfValues, setMaxMinValue] = useState<RangeOfValuesType>({
-    maxValue: JSON.parse?.(localStorage.getItem('maxScore') as string) || 5,
-    minValue: JSON.parse?.(localStorage.getItem('startScore') as string) || 0,
-  })
+  const state = useSelector(state => state)
+  const rangeOfValues = state.rangeOfValue
+
+  // const [rangeOfValues, setMaxMinValue] = useState<RangeOfValuesType>({
+  //   maxValue: JSON.parse?.(localStorage.getItem('maxScore') as string) || 5,
+  //   minValue: JSON.parse?.(localStorage.getItem('startScore') as string) || 0,
+  // })
 
   const [score, setScore] = useState<number>(rangeOfValues.startScore)
 
@@ -46,11 +52,7 @@ function App() {
                     setRangeOfValues={setRangeOfValuesHandler}
                     isSetValueHandler={isSetValueHandler}
                     isCorrectValues={isCorrectValues}/>
-      <Counter score={score}
-               setScoreHandler={setScoreHandler}
-               maxMinValue={rangeOfValues}
-               isSetValue={isSetValue}
-               isCorrectValues={isCorrectValues}/>
+      <CounterContainer/>
     </Background>
   )
 }
