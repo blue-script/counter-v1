@@ -10,12 +10,12 @@ export type maxMinValueType = {
 }
 
 function App() {
-  const [maxMinValue, setMaxMinValue] = useState<maxMinValueType>({
+  const [rangeOfValues, setMaxMinValue] = useState<maxMinValueType>({
     maxScore: JSON.parse?.(localStorage.getItem('maxScore') as string) || 5,
     startScore: JSON.parse?.(localStorage.getItem('startScore') as string) || 0,
   })
 
-  const [score, setScore] = useState<number>(maxMinValue.startScore)
+  const [score, setScore] = useState<number>(rangeOfValues.startScore)
 
   const [isSetValue, setIsSetValue] = useState(true)
   const [isCorrectValues, setIsCorrectValues] = useState(true)
@@ -25,14 +25,14 @@ function App() {
   }
 
   useEffect(() => {
-    if (maxMinValue.maxScore < 1 || maxMinValue.startScore < 0 || maxMinValue.maxScore <= maxMinValue.startScore) {
+    if (rangeOfValues.maxScore < 1 || rangeOfValues.startScore < 0 || rangeOfValues.maxScore <= rangeOfValues.startScore) {
       setIsCorrectValues(false)
     } else {
       setIsCorrectValues(true)
     }
-  }, [maxMinValue])
+  }, [rangeOfValues])
 
-  const setMaxMinValueHandler = (maxScore: number, startScore: number) => {
+  const setRangeOfValuesHandler = (maxScore: number, startScore: number) => {
     setMaxMinValue({maxScore, startScore})
     setScoreHandler(startScore)
   }
@@ -42,9 +42,14 @@ function App() {
   }
   return (
     <Background>
-      <RangeOfValue maxMinValue={maxMinValue} setMaxMinValue={setMaxMinValueHandler}
-                    isSetValueHandler={isSetValueHandler} isCorrectValues={isCorrectValues}/>
-      <Counter score={score} setScoreHandler={setScoreHandler} maxMinValue={maxMinValue} isSetValue={isSetValue}
+      <RangeOfValue rangeOfValues={rangeOfValues}
+                    setRangeOfValues={setRangeOfValuesHandler}
+                    isSetValueHandler={isSetValueHandler}
+                    isCorrectValues={isCorrectValues}/>
+      <Counter score={score}
+               setScoreHandler={setScoreHandler}
+               maxMinValue={rangeOfValues}
+               isSetValue={isSetValue}
                isCorrectValues={isCorrectValues}/>
     </Background>
   )

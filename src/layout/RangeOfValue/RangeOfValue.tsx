@@ -4,27 +4,27 @@ import {EditRangeOfValue} from './EditRangeOfValue/EditRangeOfValue';
 import Button from '../../components/Button/Button';
 
 type RangeOfValueType = {
-  maxMinValue: {
+  rangeOfValues: {
     maxScore: number
     startScore: number
   }
   isSetValueHandler: (value: boolean) => void
-  setMaxMinValue: (maxScore: number, startScore: number) => void
+  setRangeOfValues: (maxScore: number, startScore: number) => void
   isCorrectValues: boolean
 }
 
 export const RangeOfValue: React.FC<RangeOfValueType> = (props) => {
   const setValueHandler = () => {
     props.isSetValueHandler(true)
-    props.setMaxMinValue(props.maxMinValue.maxScore, props.maxMinValue.startScore)
-    localStorage.setItem('maxScore', JSON.stringify(props.maxMinValue.maxScore))
-    localStorage.setItem('startScore', JSON.stringify(props.maxMinValue.startScore))
+    props.setRangeOfValues(props.rangeOfValues.maxScore, props.rangeOfValues.startScore)
+    localStorage.setItem('maxScore', JSON.stringify(props.rangeOfValues.maxScore))
+    localStorage.setItem('startScore', JSON.stringify(props.rangeOfValues.startScore))
   }
 
   return <EditRangeOfValueStyled>
-    <EditRangeOfValue maxMinValue={props.maxMinValue}
+    <EditRangeOfValue rangeOfValues={props.rangeOfValues}
                       isSetValueHandler={props.isSetValueHandler}
-                      setMaxMinValue={props.setMaxMinValue}
+                      setRangeOfValues={props.setRangeOfValues}
     />
     <ButtonStyled>
       <Button title='set' disabled={!props.isCorrectValues} func={setValueHandler}/>
