@@ -1,44 +1,24 @@
 import React from 'react'
-import styled from 'styled-components'
+import {S} from './Button_Styles'
 
 type ButtonPropsType = {
-	title: string
-	func: () => void
-	disabled?: boolean
+  title: string
+  func: () => void
+  disabled?: boolean
 }
 const Button: React.FC<ButtonPropsType> = ({
-	title,
-	func,
-	disabled = false,
-}) => {
-	const onClickHandler = () => func()
+                                             title,
+                                             func,
+                                             disabled = false,
+                                           }) => {
+  const onClickHandler = () => func()
 
-	return (
-		<ButtonStyled disabled={disabled} onClick={onClickHandler}>
-			{title}
-		</ButtonStyled>
-	)
+  return (
+    <S.Button disabled={disabled} onClick={onClickHandler}>
+      {title}
+    </S.Button>
+  )
 }
 
 export default Button
 
-const ButtonStyled = styled.button`
-	font-size: 60px;
-	font-weight: bold;
-	background-color: #72e4fc;
-	border-radius: 10px;
-	padding: 0 40px;
-
-	&:hover {
-		cursor: pointer;
-	}
-
-	&:active {
-		opacity: 0.5;
-	}
-
-	&:disabled {
-		color: black;
-		opacity: 0.5;
-	}
-`

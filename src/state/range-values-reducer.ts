@@ -12,6 +12,8 @@ export type RangeValuesType = {
   maxValue: number
   minValue: number
 }
+
+// как через useEffect ??
 export const rangeValues: RangeValuesType = {
   maxValue: JSON.parse?.(localStorage.getItem('maxValue') as string) || 5,
   minValue: JSON.parse?.(localStorage.getItem('minValue') as string) || 0,
