@@ -20,9 +20,9 @@ export const rangeValues: RangeValuesType = {
 export const rangeValuesReducer = (state: RangeValuesType = rangeValues, action: ActionType): RangeValuesType => {
   switch (action.type) {
     case 'range/editMaxValue':
-      return state
+      return {...state, maxValue: action.payload}
     case 'range/editMinValue':
-      return state
+      return {...state, minValue: action.payload}
     default:
       return state
   }

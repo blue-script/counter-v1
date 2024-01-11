@@ -12,10 +12,8 @@ export const Counter: React.FC = () => {
   const rangeValues = useSelector<AppRootStateType, RangeValuesType>(state=>state.rangeValues)
   const valueStates = useSelector<AppRootStateType, ValueStatesType>(state=> state.valueStates)
   const dispatch = useDispatch<Dispatch>()
-  const increaseScoreHandler = () => {
-    debugger
+  const increaseValueHandler = () => {
     dispatch(changeValueAC(value + 1))
-    debugger
   }
   const resetScoreHandler = () => dispatch(changeValueAC(rangeValues.minValue))
   const disabledReset = Boolean(value <= rangeValues.minValue)
@@ -33,7 +31,7 @@ export const Counter: React.FC = () => {
         }
       </DisplayScoreStyled>
       <EditScoreStyled>
-        <Button disabled={disabledInc || !valueStates.isSetValues} title="inc" func={increaseScoreHandler}/>
+        <Button disabled={disabledInc || !valueStates.isSetValues} title="inc" func={increaseValueHandler}/>
         <Button
           disabled={disabledReset || !valueStates.isSetValues}
           title="reset"

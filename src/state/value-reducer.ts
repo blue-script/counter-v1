@@ -10,7 +10,7 @@ const initialState: number = rangeValues.minValue
 export const valueReducer = (state: number = initialState, action: ChangeValueACType): number => {
   switch (action.type) {
     case 'counter/changeValue':
-      return action.payload + 1
+      return action.payload
     default:
       return state
   }

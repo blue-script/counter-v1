@@ -12,9 +12,11 @@ type EnteringValuePropsType = {
 export const EnteringValue: React.FC<EnteringValuePropsType> = (props) => {
   const dispatch = useDispatch<Dispatch>()
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    props.title === 'maxValue'
-      ? dispatch(editMaxValueAC(e.currentTarget.valueAsNumber))
-      : dispatch(editMinValueAC(e.currentTarget.valueAsNumber))
+    if (props.title === 'maxValue') {
+      dispatch(editMaxValueAC(e.currentTarget.valueAsNumber))
+    } else {
+      dispatch(editMinValueAC(e.currentTarget.valueAsNumber))
+    }
   }
   return <EnteringValueStyled $value={props.value} $iscorrectvalues={props.isCorrectValues.toString()}>
     <p>{props.title}</p>

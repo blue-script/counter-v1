@@ -19,7 +19,7 @@ function App() {
   //   } else {
   //     dispatch(isCorrectAC(true))
   //   }
-  // }, [rangeOfValues])
+  // }, [rangeValues])
 
   if (rangeValues.maxValue < 1 || rangeValues.minValue < 0 || rangeValues.maxValue <= rangeValues.minValue) {
     dispatch(isCorrectAC(false))
