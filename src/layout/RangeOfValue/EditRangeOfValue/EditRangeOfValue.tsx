@@ -2,29 +2,22 @@ import styled from 'styled-components';
 import {EnteringValue} from '../EnteringValue/EnteringValue';
 
 type EditRangeOfValuePropsType = {
-  rangeOfValues: {
-    maxScore: number
-    startScore: number
+  rangeValues: {
+    maxValue: number
+    minValue: number
   }
-  isSetValueHandler: (value: boolean) => void
-  setRangeOfValues: (maxScore: number, startScore: number) => void
 }
 export const EditRangeOfValue: React.FC<EditRangeOfValuePropsType> = (props) => {
-  const setValue = (max: number = props.rangeOfValues.maxScore, start: number = props.rangeOfValues.startScore) => {
-    props.isSetValueHandler(false)
-    props.setRangeOfValues(max, start)
-  }
-  const isCorrectMaxScoreValues = props.rangeOfValues.maxScore <= props.rangeOfValues.startScore
+
+  const isCorrectMaxScoreValues = props.rangeValues.maxValue <= props.rangeValues.minValue
     ? false
-    : props.rangeOfValues.maxScore >= 1
-  const isCorrectStartScoreValues = props.rangeOfValues.maxScore <= props.rangeOfValues.startScore
+    : props.rangeValues.maxValue >= 1
+  const isCorrectStartScoreValues = props.rangeValues.maxValue <= props.rangeValues.minValue
     ? false
-    : props.rangeOfValues.startScore >= 0
+    : props.rangeValues.minValue >= 0
   return <EditRangeOfValueStyled>
-    <EnteringValue title='max value:' value={props.rangeOfValues.maxScore} setValue={setValue}
-                   isCorrectValues={isCorrectMaxScoreValues}/>
-    <EnteringValue title='start value:' value={props.rangeOfValues.startScore} setValue={setValue}
-                   isCorrectValues={isCorrectStartScoreValues}/>
+    <EnteringValue title='maxValue' value={props.rangeValues.maxValue} isCorrectValues={isCorrectMaxScoreValues}/>
+    <EnteringValue title='minValue' value={props.rangeValues.minValue} isCorrectValues={isCorrectStartScoreValues}/>
   </EditRangeOfValueStyled>
 }
 

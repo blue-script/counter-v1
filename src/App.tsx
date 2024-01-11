@@ -1,42 +1,35 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import './App.css'
 import {Counter} from './layout/Counter/Counter'
 import {RangeOfValue} from './layout/RangeOfValue/RangeOfValue';
-import {useSelector} from 'react-redux';
-
-export type RangeOfValuesType = {
-  maxValue: number,
-  minValue: number,
-}
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootStateType} from './state/store';
+import {RangeValuesType} from './state/range-values-reducer';
+import {isCorrectAC} from './state/value-states-reducer';
+import {Dispatch} from 'redux';
 
 function App() {
-  const isSetValueHandler = (value: boolean) => {
-    setIsSetValue(value)
+  const rangeValues = useSelector<AppRootStateType, RangeValuesType>(state => state.rangeValues)
+  const dispatch = useDispatch<Dispatch>()
+
+  // useEffect(() => {
+  //   if (rangeValues.maxValue < 1 || rangeValues.minValue < 0 || rangeValues.maxValue <= rangeValues.minValue) {
+  //     dispatch(isCorrectAC(false))
+  //   } else {
+  //     dispatch(isCorrectAC(true))
+  //   }
+  // }, [rangeOfValues])
+
+  if (rangeValues.maxValue < 1 || rangeValues.minValue < 0 || rangeValues.maxValue <= rangeValues.minValue) {
+    dispatch(isCorrectAC(false))
+  } else {
+    dispatch(isCorrectAC(true))
   }
 
-  useEffect(() => {
-    if (rangeOfValues.maxScore < 1 || rangeOfValues.startScore < 0 || rangeOfValues.maxScore <= rangeOfValues.startScore) {
-      setIsCorrectValues(false)
-    } else {
-      setIsCorrectValues(true)
-    }
-  }, [rangeOfValues])
-
-  const setRangeOfValuesHandler = (maxScore: number, startScore: number) => {
-    setMaxMinValue({maxScore, startScore})
-    setScoreHandler(startScore)
-  }
-
-  const setScoreHandler = (num: number) => {
-    setScore(num)
-  }
   return (
     <Background>
-      <RangeOfValue rangeOfValues={rangeOfValues}
-                    setRangeOfValues={setRangeOfValuesHandler}
-                    isSetValueHandler={isSetValueHandler}
-                    isCorrectValues={isCorrectValues}/>
+      <RangeOfValue/>
       <Counter/>
     </Background>
   )

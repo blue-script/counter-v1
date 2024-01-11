@@ -1,17 +1,20 @@
 import styled, {css} from 'styled-components';
 import {ChangeEvent} from 'react';
+import {useDispatch} from 'react-redux';
+import {Dispatch} from 'redux';
+import {editMaxValueAC, editMinValueAC} from '../../../state/range-values-reducer';
 
 type EnteringValuePropsType = {
-  title: string
+  title: 'maxValue' | 'minValue'
   value: number
-  setValue: (max: number | undefined, start: number | undefined) => void
   isCorrectValues: boolean
 }
 export const EnteringValue: React.FC<EnteringValuePropsType> = (props) => {
+  const dispatch = useDispatch<Dispatch>()
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    props.title === 'max value:'
-      ? props.setValue(e.currentTarget.valueAsNumber, undefined)
-      : props.setValue(undefined, e.currentTarget.valueAsNumber)
+    props.title === 'maxValue'
+      ? dispatch(editMaxValueAC(e.currentTarget.valueAsNumber))
+      : dispatch(editMinValueAC(e.currentTarget.valueAsNumber))
   }
   return <EnteringValueStyled $value={props.value} $iscorrectvalues={props.isCorrectValues.toString()}>
     <p>{props.title}</p>
@@ -21,7 +24,7 @@ export const EnteringValue: React.FC<EnteringValuePropsType> = (props) => {
 
 
 // Style------------------------------------------------
-type EnteringValueStyledProps = {$iscorrectvalues: string, $value: number}
+type EnteringValueStyledProps = { $iscorrectvalues: string, $value: number }
 const EnteringValueStyled = styled.div<EnteringValueStyledProps>`
   display: flex;
   justify-content: space-between;
@@ -43,7 +46,8 @@ const EnteringValueStyled = styled.div<EnteringValueStyledProps>`
     font-size: 16px;
     max-width: 200px;
   }
-  ${props=> props.$iscorrectvalues ==='false' && css<EnteringValueStyledProps>`
+
+  ${props => props.$iscorrectvalues === 'false' && css<EnteringValueStyledProps>`
     input {
       border: 4px solid red;
       border-radius: 5px;

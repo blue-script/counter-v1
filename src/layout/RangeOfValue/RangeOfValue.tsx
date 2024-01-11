@@ -1,33 +1,29 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {EditRangeOfValue} from './EditRangeOfValue/EditRangeOfValue';
 import Button from '../../components/Button/Button';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootStateType} from '../../state/store';
+import {isSetAC, ValueStatesType} from '../../state/value-states-reducer';
+import {RangeValuesType} from '../../state/range-values-reducer';
+import {Dispatch} from 'redux';
+import {changeValueAC} from '../../state/value-reducer';
 
-type RangeOfValueType = {
-  rangeOfValues: {
-    maxScore: number
-    startScore: number
-  }
-  isSetValueHandler: (value: boolean) => void
-  setRangeOfValues: (maxScore: number, startScore: number) => void
-  isCorrectValues: boolean
-}
-
-export const RangeOfValue: React.FC<RangeOfValueType> = (props) => {
+export const RangeOfValue: React.FC = () => {
+  const rangeValues = useSelector<AppRootStateType, RangeValuesType>(state => state.rangeValues)
+  const valueStates = useSelector<AppRootStateType, ValueStatesType>(state => state.valueStates)
+  const dispatch = useDispatch<Dispatch>()
   const setValueHandler = () => {
-    props.isSetValueHandler(true)
-    props.setRangeOfValues(props.rangeOfValues.maxScore, props.rangeOfValues.startScore)
-    localStorage.setItem('maxScore', JSON.stringify(props.rangeOfValues.maxScore))
-    localStorage.setItem('startScore', JSON.stringify(props.rangeOfValues.startScore))
+    dispatch(isSetAC(true))
+    dispatch(changeValueAC(rangeValues.minValue))
+    localStorage.setItem('maxValue', JSON.stringify(rangeValues.maxValue))
+    localStorage.setItem('minValue', JSON.stringify(rangeValues.minValue))
   }
 
   return <EditRangeOfValueStyled>
-    <EditRangeOfValue rangeOfValues={props.rangeOfValues}
-                      isSetValueHandler={props.isSetValueHandler}
-                      setRangeOfValues={props.setRangeOfValues}
-    />
+    <EditRangeOfValue rangeValues={rangeValues}/>
     <ButtonStyled>
-      <Button title='set' disabled={!props.isCorrectValues} func={setValueHandler}/>
+      <Button title='set' disabled={!valueStates.isCorrectValues} func={setValueHandler}/>
     </ButtonStyled>
   </EditRangeOfValueStyled>
 }

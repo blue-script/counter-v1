@@ -6,6 +6,8 @@ export type  EditMinValueACType = {
   type: 'range/editMinValue',
   payload: number
 }
+type ActionType = EditMaxValueACType | EditMinValueACType
+
 export type RangeValuesType = {
   maxValue: number
   minValue: number
@@ -15,7 +17,7 @@ export const rangeValues: RangeValuesType = {
   minValue: JSON.parse?.(localStorage.getItem('minValue') as string) || 0,
 }
 
-export const rangeValuesReducer = (state: RangeValuesType = rangeValues, action: any): RangeValuesType => {
+export const rangeValuesReducer = (state: RangeValuesType = rangeValues, action: ActionType): RangeValuesType => {
   switch (action.type) {
     case 'range/editMaxValue':
       return state
