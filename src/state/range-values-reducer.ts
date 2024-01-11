@@ -1,5 +1,3 @@
-import {IncreaseACType} from './counter-reducer';
-
 export type  EditMaxValueACType = {
   type: 'range/editMaxValue',
   payload: number
@@ -8,17 +6,16 @@ export type  EditMinValueACType = {
   type: 'range/editMinValue',
   payload: number
 }
-
-type InitialStateType = {
+export type RangeValuesType = {
   maxValue: number
   minValue: number
 }
-export const initialState: InitialStateType = {
-  maxValue: JSON.parse?.(localStorage.getItem('maxScore') as string) || 5,
-  minValue: JSON.parse?.(localStorage.getItem('startScore') as string) || 0,
+export const rangeValues: RangeValuesType = {
+  maxValue: JSON.parse?.(localStorage.getItem('maxValue') as string) || 5,
+  minValue: JSON.parse?.(localStorage.getItem('minValue') as string) || 0,
 }
 
-export const rangeOfValueReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
+export const rangeValuesReducer = (state: RangeValuesType = rangeValues, action: any): RangeValuesType => {
   switch (action.type) {
     case 'range/editMaxValue':
       return state

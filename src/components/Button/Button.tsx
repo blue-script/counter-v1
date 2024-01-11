@@ -22,8 +22,6 @@ const Button: React.FC<ButtonPropsType> = ({
 
 export default Button
 
-
-// Style ---------------------------------------------------------
 const ButtonStyled = styled.button`
 	font-size: 60px;
 	font-weight: bold;

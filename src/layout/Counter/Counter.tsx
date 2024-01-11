@@ -1,40 +1,37 @@
-import React, {useState} from 'react'
+import {Dispatch} from 'redux'
 import styled, {css} from 'styled-components';
 import Button from '../../components/Button/Button';
-import {MyPostsType} from './CounterContainer';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootStateType} from '../../state/store';
+import {RangeValuesType} from '../../state/range-values-reducer';
+import {changeValueAC} from '../../state/value-reducer';
+import {ValueStatesType} from '../../state/value-states-reducer';
 
-// type CounterType = {
-//   score: number
-//   setValueHandler: (num: number) => void
-//   maxMinValue: {
-//     maxScore: number
-//     startScore: number
-//   }
-//   isSetValue: boolean
-//   isCorrectValues: boolean
-// }
-
-export const Counter: React.FC<MyPostsType> = ({score, rangeOfValue, setValueHandler, ...rest}) => {
-  const incScoreHandler = () => setValueHandler(score + 1)
-  const resetScoreHandler = () => setValueHandler(rangeOfValue.minValue)
-  const disabledForReset = Boolean(props.score <= props.maxMinValue.startScore)
-  const disabledForInc = Boolean(props.score >= props.maxMinValue.maxScore)
+export const Counter: React.FC = () => {
+  const value = useSelector<AppRootStateType, number>(state=>state.value)
+  const rangeValues = useSelector<AppRootStateType, RangeValuesType>(state=>state.rangeValues)
+  const valueStates = useSelector<AppRootStateType, ValueStatesType>(state=> state.valueStates)
+  const dispatch = useDispatch<Dispatch>()
+  const increaseScoreHandler = () => dispatch(changeValueAC(value + 1))
+  const resetScoreHandler = () => dispatch(changeValueAC(rangeValues.minValue))
+  const disabledReset = Boolean(value <= rangeValues.minValue)
+  const disabledInc = Boolean(value >= rangeValues.maxValue)
 
   return (
     <CounterStyled>
-      <DisplayScoreStyled $score={props.score} $maxscore={props.maxMinValue.maxScore} $iscorrectvalues={props.isCorrectValues.toString()} $issetvalue={props.isSetValue.toString()}>
+      <DisplayScoreStyled $value={value} $maxvalue={rangeValues.maxValue} $iscorrectvalues={valueStates.isCorrectValues.toString()} $issetvalue={valueStates.isSetValues.toString()}>
         {
-          props.isSetValue
-          ? props.score
-          : props.isCorrectValues
+          valueStates.isSetValues
+          ? value
+          : valueStates.isCorrectValues
             ? 'enter values and press "set"'
             : 'Incorrect value!'
         }
       </DisplayScoreStyled>
       <EditScoreStyled>
-        <Button disabled={disabledForInc || !props.isSetValue} title="inc" func={incScoreHandler}/>
+        <Button disabled={disabledInc || !valueStates.isSetValues} title="inc" func={increaseScoreHandler}/>
         <Button
-          disabled={disabledForReset || !props.isSetValue}
+          disabled={disabledReset || !valueStates.isSetValues}
           title="reset"
           func={resetScoreHandler}
         />
@@ -67,9 +64,10 @@ const EditScoreStyled = styled.div`
   gap: 50px;
 `
 
+// ????????????????????????????????????????
 type DisplayScoreStyledProps = {
-  $score:number
-  $maxscore: number
+  $value:number
+  $maxvalue: number
   $iscorrectvalues: string
   $issetvalue: string
 }
@@ -85,7 +83,7 @@ const DisplayScoreStyled = styled.div<DisplayScoreStyledProps>`
   font-size: 100px;
   font-weight: bold;
   ${props =>
-          props.$score >= props.$maxscore &&
+          props.$value >= props.$maxvalue &&
           css<DisplayScoreStyledProps>`
             color: red;
           `}

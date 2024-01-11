@@ -1,12 +1,14 @@
-import {createStore, combineReducers} from 'redux';
-import {counterReducer} from './counter-reducer';
-import {rangeOfValueReducer} from './range-of-value-reducer';
+import {combineReducers, legacy_createStore} from 'redux';
+import {rangeValuesReducer} from './range-values-reducer';
+import {valueReducer} from './value-reducer';
+import {valueStatesReducer} from './value-states-reducer';
 
-export type AppRootStateType = ReturnType <typeof RootReducer>
+export type AppRootStateType = ReturnType<typeof RootReducer>
 
 const RootReducer = combineReducers({
-    score: counterReducer,
-    rangeOfValue: rangeOfValueReducer,
-  })
+  value: valueReducer,
+  rangeValues: rangeValuesReducer,
+  valueStates: valueStatesReducer
+})
 
-export const store = createStore(RootReducer)
+export const store = legacy_createStore(RootReducer)
