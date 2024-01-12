@@ -39,7 +39,7 @@ const DisplayScore = styled.div<DisplayScoreProps>`
   font-size: 100px;
   font-weight: bold;
   ${props =>
-          props.$value >= props.$maxvalue &&
+          props.$issetvalue === 'true' && props.$value >= props.$maxvalue &&
           css<DisplayScoreProps>`
             color: red;
           `}
