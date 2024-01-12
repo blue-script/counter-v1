@@ -13,9 +13,6 @@ function App() {
   const rangeValues = useSelector<AppRootStateType, RangeValuesType>(state => state.rangeValues)
   const dispatch = useDispatch<Dispatch>()
 
-  // Баг красным текст в каунтере когда maxValue становится как value в counter
-  // исправить
-
   // useEffect(() => {
   //   if (rangeValues.maxValue < 1 || rangeValues.minValue < 0 || rangeValues.maxValue <= rangeValues.minValue) {
   //     dispatch(isCorrectAC(false))
